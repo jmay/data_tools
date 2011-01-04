@@ -1,0 +1,17 @@
+PATH
+  remote: .
+  specs:
+    vmunger (0.1.0)
+      facets (~> 2.9.0)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    facets (2.9.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (>= 1.0.0.rc.5)
+  vmunger!
