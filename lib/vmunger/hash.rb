@@ -169,7 +169,8 @@ class Hash
     end
   end
 
-  def nilify!(nilvalue)
+  # remove all the keys that contain nil values (or specify a "nil" value for sources that fill in empty records with special nil placeholders)
+  def nilify!(nilvalue = nil)
     each do |k,v|
       self.delete(k) if v == nilvalue
     end
