@@ -16,8 +16,8 @@ Gem::Specification.new do |s|
   s.rubyforge_project         = "vmunger"
 
   s.add_development_dependency "bundler", ">= 1.0.0.rc.5"
-  s.add_dependency('ap')
-  s.add_dependency('facets')
+  s.add_dependency('awesome_print', ">= 0.3.1")
+  s.add_dependency('facets', ">= 2.8")
 
   s.files        = `git ls-files`.split("\n")
   s.executables  = `git ls-files`.split("\n").select{|f| f =~ /^bin/}
