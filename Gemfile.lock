@@ -2,16 +2,29 @@ PATH
   remote: .
   specs:
     vmunger (0.1.0)
-      facets (~> 2.9.0)
+      awesome_print (>= 0.3.1)
+      facets (>= 2.8)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    facets (2.9.0)
+    awesome_print (0.3.2)
+    bond (0.4.0)
+    facets (2.9.1)
+    ripl (0.3.2)
+      bond (~> 0.4.0)
+    ripl-commands (0.2.1)
+      ripl (>= 0.2.9)
+    ripl-multi_line (0.2.4)
+      ripl (>= 0.3.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  bond
   bundler (>= 1.0.0.rc.5)
+  ripl
+  ripl-commands
+  ripl-multi_line
   vmunger!
