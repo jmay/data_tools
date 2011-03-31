@@ -1,5 +1,5 @@
 class Object
   def vconvert(rule)
-    self && ConversionsLibrary.method(rule).call(self)
+    self && VMunger::Conversions.method(rule).call(self)
   end
 end

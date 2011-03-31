@@ -11,7 +11,7 @@ GEM
     awesome_print (0.3.2)
     bond (0.4.0)
     facets (2.9.1)
-    ripl (0.3.2)
+    ripl (0.3.4)
       bond (~> 0.4.0)
     ripl-commands (0.2.1)
       ripl (>= 0.2.9)
