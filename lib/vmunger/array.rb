@@ -93,8 +93,8 @@ class Array
     select {|row| row.any?}.map do |row|
       raise "Row count mismatch: #{row}" if row.count != headers.count
       hash = {}
-      row.zip(headers) {|v,k| hash[k] = v}
-      hash.delete_values(nil) # completely remove keys for nil values
+      row.zip(headers) {|v,k| hash[k] = v unless v.blank?}
+      # hash.delete_values(nil) # completely remove keys for nil values
       hash
     end
   end
