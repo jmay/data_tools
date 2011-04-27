@@ -21,6 +21,10 @@ module VMunger::Conversions
     (ou = value.split(',').select{|s| s =~ /^OU=/}.first) && ou.split('=').last
   end
 
+  def self.second_ou(value)
+    (ou = value.split(',').select{|s| s =~ /^OU=/}[1]) && ou.split('=').last
+  end
+
   def self.msad_active_account(value)
     value.to_i & 2 == 0
   end
@@ -31,5 +35,12 @@ module VMunger::Conversions
 
   def self.max_datestr(values)
     (dt = values.compact.max) && dt.strftime("%m/%d/%Y")
+  end
+
+  # def self.difference_in_days(start_ts, end_ts1, end_ts2 = nil)
+  def self.difference_in_days(args)
+    start_ts, end_ts1, end_ts2 = *args
+    end_ts = end_ts1 || end_ts2
+    end_ts && start_ts && (end_ts.to_date - start_ts.to_date).to_i
   end
 end

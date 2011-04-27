@@ -30,12 +30,21 @@ module VMunger::Transformations
   def self.enhance(args)
     h = args[:hash]
     args[:rules].each do |rule|
-      if rule[:input].is_a?(Array)
-        h[rule[:output]] = h.values_at(rule[:input]).vconvert(rule[:rule])
-      else
-        h[rule[:output]] = h[rule[:input]].vconvert(rule[:rule])
-      end
+      self.runrule(rule, h)
     end
     h
+  end
+
+  def self.runrule(rule, data)
+    begin
+      if rule[:input].is_a?(Array)
+        data[rule[:output]] = data.values_at(*rule[:input]).vconvert(rule[:rule])
+      else
+        data[rule[:output]] = data[rule[:input]].vconvert(rule[:rule])
+      end
+    rescue Exception => e
+      STDERR.puts "RULE #{rule[:rule]} FAILED: #{e.to_s} WITH INPUTS #{data.values_at(*rule[:input]).inspect}"
+      exit
+    end
   end
 end
