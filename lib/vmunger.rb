@@ -7,19 +7,14 @@ module VMunger
   def self.reload!
     $".grep(/vmunger/).each {|f| load(f)}
   end
-
-  def self.unmarshal(file)
-    Marshal.load(File.read(file))
-  end
 end
 
-require File.dirname(__FILE__) + "/vmunger/version"
-require File.dirname(__FILE__) + "/vmunger/array"
-require File.dirname(__FILE__) + "/vmunger/conversions"
-require File.dirname(__FILE__) + "/vmunger/hash"
-require File.dirname(__FILE__) + "/vmunger/object"
-require File.dirname(__FILE__) + "/vmunger/string"
-require File.dirname(__FILE__) + "/vmunger/symbol"
-require File.dirname(__FILE__) + "/vmunger/transformations"
+[
+  "version", "array", "hash", "object", "string", "symbol",
+  "file", "io"
+  "conversions", "transformations"
+].each do |file|
+    require File.dirname(__FILE__) + "/vmunger/#{file}"
+end
 
 $stderr.puts "# loaded #{__FILE__}"

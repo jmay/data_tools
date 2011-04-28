@@ -9,9 +9,9 @@ GEM
   remote: http://rubygems.org/
   specs:
     awesome_print (0.3.2)
-    bond (0.4.0)
+    bond (0.4.1)
     facets (2.9.1)
-    ripl (0.3.4)
+    ripl (0.3.6)
       bond (~> 0.4.0)
     ripl-commands (0.2.1)
       ripl (>= 0.2.9)
