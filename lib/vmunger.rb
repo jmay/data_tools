@@ -11,7 +11,7 @@ end
 
 [
   "version", "array", "hash", "object", "string", "symbol",
-  "file", "io"
+  "file", "io",
   "conversions", "transformations"
 ].each do |file|
     require File.dirname(__FILE__) + "/vmunger/#{file}"
