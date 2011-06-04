@@ -1,14 +1,14 @@
 PATH
   remote: .
   specs:
-    vmunger (0.1.0)
+    vmunger (0.2.0)
       awesome_print (>= 0.3.1)
       facets (>= 2.8)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    awesome_print (0.3.2)
+    awesome_print (0.4.0)
     bond (0.4.1)
     facets (2.9.1)
     ripl (0.3.6)

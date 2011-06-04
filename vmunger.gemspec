@@ -8,9 +8,9 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors = ["Jason May"]
   s.email = %q{jmay@pobox.com}
-  s.homepage    = "http://rubygems.org/gems/vmunger"
-  s.summary = %q{Data-munging utilities for Veriphyr.}
-  s.description = %q{Data-munging utilities for Veriphyr, including extensions to Array, Hash, String, Symbol plus data conversions and transformations.}
+  s.homepage    = "http://github.com/jmay/vmunger"
+  s.summary = %q{Miscellaneous data-munging utilities.}
+  s.description = %q{Data-munging utilities, including extensions to Array, Hash, String, Symbol plus data conversions and transformations.}
 
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project         = "vmunger"
