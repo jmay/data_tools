@@ -89,10 +89,11 @@ class Array
 
   # turns an array-of-arrays into an array-of-hashes
   # the headers are used as names for the fields
+  # OK for rows to have fewer fields than the header record, but must not be longer
   def hashify(headers = shift)
     hdrs = headers.map {|h| h && h.strip}
     select {|row| row.any?}.map do |row|
-      raise "Row count mismatch: #{row}" if row.count != hdrs.count
+      raise "Row count mismatch: #{row}" if row.count > hdrs.count
       hash = {}
       row.zip(hdrs) {|v,k| hash[k] = v.strip unless v.blank?}
       # hash.delete_values(nil) # completely remove keys for nil values

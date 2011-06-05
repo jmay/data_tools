@@ -92,6 +92,10 @@ class Hash
     raise "#{filename} exists" if File.exists?(filename)
     File.open(filename, "w") {|f| f << Marshal.dump(self)}
   end
+  def dumpme!(filename)
+    File.unlink(filename) if File.exists?(filename)
+    File.open(filename, "w") {|f| f << Marshal.dump(self)}
+  end
 
   # HASH OF ARRAYS
   def append(hash2)
