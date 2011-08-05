@@ -92,11 +92,11 @@ class Array
   # OK for rows to have fewer fields than the header record, but must not be longer
   def hashify(headers = shift)
     # ignore leading/trailing whitespace in header labels
-    hdrs = headers.map {|h| h && h.strip}
+    headers.each {|hdr| hdr.strip! if hdr === String}
     select {|row| row.any?}.map do |row|
       raise "Row count mismatch: #{row}" if row.count > hdrs.count
       hash = {}
-      row.zip(hdrs) do |v,k|
+      row.zip(headers) do |v,k|
         # ignore any keys with missing values
         # remove leading/trailing whitespace from values
         hash[k] = v.strip unless v.blank?
