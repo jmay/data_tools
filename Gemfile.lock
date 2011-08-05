@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    vmunger (0.1.0)
+    vmunger (0.2.0)
       awesome_print (>= 0.3.1)
       facets (>= 2.8)
 
@@ -22,8 +22,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   bond
   bundler (>= 1.0.0.rc.5)
+  facets
   ripl
   ripl-commands
   ripl-multi_line

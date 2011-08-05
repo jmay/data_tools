@@ -90,11 +90,16 @@ class Array
   # turns an array-of-arrays into an array-of-hashes
   # the headers are used as names for the fields
   def hashify(headers = shift)
+    # ignore leading/trailing whitespace in header labels
+    headers.each {|hdr| hdr.strip! if hdr === String}
     select {|row| row.any?}.map do |row|
       raise "Row count mismatch: #{row}" if row.count != headers.count
       hash = {}
-      row.zip(headers) {|v,k| hash[k] = v unless v.blank?}
-      # hash.delete_values(nil) # completely remove keys for nil values
+      row.zip(headers) do |v,k|
+        # ignore any keys with missing values
+        # remove leading/trailing whitespace from values
+        hash[k] = v.strip unless v.blank?
+      end
       hash
     end
   end
