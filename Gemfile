@@ -1,10 +1,7 @@
 source :rubygems
 
-# Specify your gem's dependencies in vmunger.gemspec
+# Specify your gem's dependencies in data_tools.gemspec
 gemspec
-
-gem "awesome_print"
-gem "facets"
 
 gem "ripl"
 gem "ripl-commands"

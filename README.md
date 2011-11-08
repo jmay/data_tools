@@ -1,3 +1,7 @@
-# README for vmunger
+# README for data_tools
 
-Miscellaneous data-munging utility functions for Veriphyr.
+Miscellaneous data-munging utility functions.
+
+## Array
+
+This is really an Array-of-Hashes.

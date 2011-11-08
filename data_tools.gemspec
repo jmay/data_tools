@@ -15,9 +15,11 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project         = "data_tools"
 
-  s.add_development_dependency "bundler", ">= 1.0.0.rc.5"
   s.add_dependency('awesome_print', ">= 0.3.1")
   s.add_dependency('facets', ">= 2.8")
+
+  s.add_development_dependency "bundler", ">= 1.0.0.rc.5"
+  s.add_development_dependency "rspec", ">= 2.5.0"
 
   s.files        = `git ls-files`.split("\n")
   s.executables  = `git ls-files`.split("\n").select{|f| f =~ /^bin/}
