@@ -1,4 +1,4 @@
-module VMunger::Transformations
+module DataTools::Transformations
   # unraveling the hierarchical group membership structure in Microsoft Active Directory
   # expand the group information from MSAD "memberOf" fields
   # flatten the hierarchy, so each account records every group of which it is a member, even through sub-groups

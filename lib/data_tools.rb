@@ -3,9 +3,9 @@ require "set"
 require "csv"
 require "facets" # for Hash#delete_values
 
-module VMunger
+module DataTools
   def self.reload!
-    $".grep(/vmunger/).each {|f| load(f)}
+    $".grep(/data_tools/).each {|f| load(f)}
   end
 end
 
@@ -14,7 +14,7 @@ end
   "file", "io",
   "conversions", "transformations"
 ].each do |file|
-    require File.dirname(__FILE__) + "/vmunger/#{file}"
+    require File.dirname(__FILE__) + "/data_tools/#{file}"
 end
 
 $stderr.puts "# loaded #{__FILE__}"
