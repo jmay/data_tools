@@ -22,8 +22,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   bond
   bundler (>= 1.0.0.rc.5)
+  facets
   ripl
   ripl-commands
   ripl-multi_line
