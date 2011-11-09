@@ -11,10 +11,9 @@ end
 
 [
   "version", "array", "hash", "object", "string", "symbol",
+  "hash_of_arrays",
   "file", "io",
   "conversions", "transformations"
 ].each do |file|
     require File.dirname(__FILE__) + "/data_tools/#{file}"
 end
-
-$stderr.puts "# loaded #{__FILE__}"
