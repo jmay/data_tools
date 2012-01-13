@@ -179,4 +179,22 @@ class Hash
       self.delete(k) if v == nilvalue
     end
   end
+
+  # HASH OF ARRAYS
+  def coalesce!(args)
+    rules = args[:per]
+    rules.each do |from, to|
+      if self[to].nil?
+        raise "cannot merge #{from} into #{to}, destination does not exist"
+      end
+      if self[from].nil?
+        $stderr.puts "cannot merge #{from} into #{to}, source does not exist, ignoring"
+        next
+      end
+      self[to] += self[from]
+      self.delete(from)
+    end
+    self
+  end
+
 end
