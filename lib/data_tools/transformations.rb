@@ -27,24 +27,25 @@ module DataTools::Transformations
     end while membership_counts == base_membership_counts
   end
 
-  def self.enhance(args)
-    h = args[:hash]
-    args[:rules].each do |rule|
-      self.runrule(rule, h)
-    end
-    h
-  end
-
-  def self.runrule(rule, data)
-    begin
-      if rule[:input].is_a?(Array)
-        data[rule[:output]] = data.values_at(*rule[:input]).vconvert(rule[:rule])
-      else
-        data[rule[:output]] = data[rule[:input]].vconvert(rule[:rule])
-      end
-    rescue Exception => e
-      STDERR.puts "RULE #{rule[:rule]} FAILED: #{e.to_s} WITH INPUTS #{data.values_at(*rule[:input]).inspect}"
-      exit
-    end
-  end
+  # superseded by rules.rb
+  # def self.enhance(args)
+  #   h = args[:hash]
+  #   args[:rules].each do |rule|
+  #     self.runrule(rule, h)
+  #   end
+  #   h
+  # end
+  # 
+  # def self.runrule(rule, data)
+  #   begin
+  #     if rule[:input].is_a?(Array)
+  #       data[rule[:output]] = data.values_at(*rule[:input]).vconvert(rule[:rule])
+  #     else
+  #       data[rule[:output]] = data[rule[:input]].vconvert(rule[:rule])
+  #     end
+  #   rescue Exception => e
+  #     STDERR.puts "RULE #{rule[:rule]} FAILED: #{e.to_s} WITH INPUTS #{data.values_at(*rule[:input]).inspect}"
+  #     exit
+  #   end
+  # end
 end
