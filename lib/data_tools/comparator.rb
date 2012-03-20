@@ -11,7 +11,8 @@ class Comparator
   end
 
   def crunch(record)
-    @corpus.delete_if{|r| r == record}.reduce([]) do |matches,candidate|
+    (@corpus - [record]).reduce([]) do |matches,candidate|
+    # @corpus.delete_if{|r| r == record}.reduce([]) do |matches,candidate|
       if evaluate(record, candidate)
         matches << candidate
       end

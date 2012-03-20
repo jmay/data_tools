@@ -28,9 +28,14 @@ describe "Comparator" do
     try(:missing_initials, "michael palmer", "Q michael palmer")
     try(:missing_initials, "michael palmer", "Michael N Palmer x")
     bust(:missing_initials, "michael palmer", "Michael P")
+    bust(:missing_initials, "michael palmer", "Michael John Palmer")
 
     matches = @comp.crunch(explode("michael palmer"))
     matches.should == [explode("michael g palmer")]
+    matches = @comp.crunch(explode("palmer michael"))
+    matches.should == [explode("michael g palmer")]
+    matches = @comp.crunch(explode("michael g palmer"))
+    matches.should == [explode("michael palmer")]
   end
 
   it "finds names that match initials to names" do
