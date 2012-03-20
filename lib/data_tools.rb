@@ -10,8 +10,11 @@ module DataTools
 end
 
 [
-  "version", "array", "hash", "object", "string", "symbol",
-  "hash_of_arrays",
+  "version",
+  "array", "hash",
+  "array_of_hashes", "hash_of_arrays",
+  "comparator",
+  "object", "string", "symbol",
   "file", "io",
   "rules",
   "conversions", "transformations"
