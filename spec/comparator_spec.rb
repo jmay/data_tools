@@ -2,7 +2,7 @@ require_relative "spec_helper"
 
 describe "Comparator" do
   def explode(name)
-    name.split.map(&:upcase).sort
+    name.gsub(/[,._-]/, ' ').split.map(&:upcase).sort
   end
 
   def try(rule, name1, name2)
@@ -48,5 +48,12 @@ describe "Comparator" do
     bust(:matching_initials, "fred xavier jones", "fred q jones")
     bust(:matching_initials, "fred x jones", "fred q jones")
     bust(:matching_initials, "fred xavier jones", "homer simpson")
+  end
+
+  it "finds names that match on all but one long names" do
+    try(:matching_all_but_one, "john philip sousa", "john sousa")
+    try(:matching_all_but_one, "philip sousa", "philip john sousa")
+    bust(:matching_all_but_one, "john philip sousa", "philip john sousa")
+    try(:matching_all_but_one, "Helen Q. Glorpworth-Smythe", "helen smythe")
   end
 end

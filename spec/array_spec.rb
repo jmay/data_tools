@@ -25,7 +25,7 @@ describe "DataTools Array extensions" do
     ]
   end
 
-  pending "isn't ready yet" do
-    4.should == 5
-  end
+  # pending "isn't ready yet" do
+  #   4.should == 5
+  # end
 end

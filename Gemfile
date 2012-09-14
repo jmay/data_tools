@@ -7,5 +7,3 @@ gem "ripl"
 gem "ripl-commands"
 gem "ripl-multi_line"
 gem 'bond'
-
-gem "rspec"

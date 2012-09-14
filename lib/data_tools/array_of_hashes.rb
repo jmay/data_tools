@@ -36,7 +36,7 @@ module DataTools::ArrayOfHashes
   # shorthand for `Array#select {|hash| hash[...] && hash[...] ...}`
   # find all the members of the array where all the specified criteria are true
   def where(conditions)
-    case conditions
+    newhash = case conditions
     when Hash
       select do |record|
         conditions.map do |k,v|
@@ -56,6 +56,7 @@ module DataTools::ArrayOfHashes
       # just check for presence & non-nil value of specified key
       select {|record| record[conditions]}
     end
+    newhash.extend DataTools::ArrayOfHashes
   end
 
   # are all the values for `key` defined and unique?

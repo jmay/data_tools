@@ -6,17 +6,19 @@
 # run the subset * the full corpus * the matching rules
 
 class Comparator
+  attr_reader :corpus
+
   def initialize(corpus)
     @corpus = corpus
+
+    prep_missing_initials
   end
 
   def crunch(record)
-    (@corpus - [record]).reduce([]) do |matches,candidate|
-    # @corpus.delete_if{|r| r == record}.reduce([]) do |matches,candidate|
+    (@corpus - [record]).each_with_object([]) do |candidate,matches|
       if evaluate(record, candidate)
         matches << candidate
       end
-      matches
     end
   end
 
@@ -44,6 +46,15 @@ class Comparator
     longnames_a.count >= 2 && longnames_b.count >= 2 && longnames_a == longnames_b && (inits_a.empty? || inits_b.empty?)
   end
 
+  def prep_missing_initials
+    @corpus_missing_initials = corpus.each_with_object(Set.new) do |rec,set|
+      without_initials = rec.select {|s| s.length > 1}
+      if without_initials.count >= 2
+        set << without_initials
+      end
+    end
+  end
+
   # must have at least 1 long (non-initial-only) component in each
   # those long parts must be identical
   # all initials should correspond to non-matched longnames in the other input
@@ -62,4 +73,13 @@ class Comparator
 
     inits_a == unmatched_inits_b && inits_b == unmatched_inits_a
   end
+
+  # ignore any initials. look for cases where there is exactly one name component that differs between the inputs.
+  def matching_all_but_one(a,b)
+    longnames_a = a.select {|s| s.length > 1}
+    longnames_b = b.select {|s| s.length > 1}
+
+    ((longnames_a | longnames_b) - (longnames_a & longnames_b)).count == 1
+  end
+
 end

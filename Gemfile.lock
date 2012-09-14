@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    data_tools (0.4)
-      awesome_print (>= 0.3.1)
-      facets (>= 2.8)
+    data_tools (0.5)
+      awesome_print (~> 1.0)
+      facets (>= 2.9)
 
 GEM
   remote: http://rubygems.org/
@@ -32,9 +32,8 @@ PLATFORMS
 
 DEPENDENCIES
   bond
-  bundler (>= 1.0.0.rc.5)
   data_tools!
   ripl
   ripl-commands
   ripl-multi_line
-  rspec
+  rspec (~> 2.7)
