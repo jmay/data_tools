@@ -180,21 +180,34 @@ class Hash
     end
   end
 
-  # HASH OF ARRAYS
-  def coalesce!(args)
-    rules = args[:per]
-    rules.each do |from, to|
-      if self[to].nil?
-        raise "cannot merge #{from} into #{to}, destination does not exist"
+  # # HASH OF ARRAYS
+  # def coalesce!(args)
+  #   rules = args[:per]
+  #   rules.each do |from, to|
+  #     if self[to].nil?
+  #       raise "cannot merge #{from} into #{to}, destination does not exist"
+  #     end
+  #     if self[from].nil?
+  #       $stderr.puts "cannot merge #{from} into #{to}, source does not exist, ignoring"
+  #       next
+  #     end
+  #     self[to] += self[from]
+  #     self.delete(from)
+  #   end
+  #   self
+  # end
+
+  def cleanse(options = {})
+    each_with_object({}) do |(k,v), out|
+      out[k] = DataTools.scour(v)
+      if dateformat = options[:datefields][k]
+        begin
+          out[k] = DateTime.strptime(v, dateformat).to_time
+        rescue
+          warn "invalid #{k} (expected #{dateformat}): #{rec}"
+        end
       end
-      if self[from].nil?
-        $stderr.puts "cannot merge #{from} into #{to}, source does not exist, ignoring"
-        next
-      end
-      self[to] += self[from]
-      self.delete(from)
     end
-    self
   end
 
 end

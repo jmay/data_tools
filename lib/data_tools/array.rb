@@ -38,14 +38,5 @@ module DataTools::Array
     File.open(filename, "w") {|f| f << Marshal.dump(self)}
   end
 
-  # attempt to dump out contents of this array-of-hashes as CSV to named file
-  # fields is list of attribute names to write out
-  # options headers is public names for the fields
-  def csvme(filename, fields, headers = fields)
-    CSV.open(filename, "wb") do |csv|
-      csv << headers unless headers.nil?
-      each {|hash| csv << fields.map {|f| hash[f]}}
-    end
-    true
-  end
+
 end

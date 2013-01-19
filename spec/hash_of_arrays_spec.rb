@@ -2,10 +2,12 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "Hash of Arrays" do
   before(:each) do
-    @hoa = HashOfArrays.new
-    @hoa["one"] = ["a", "b", "c"]
-    @hoa["two"] = ["d", "e"]
-    @hoa["three"] = ["f"]
+    @hoa = {
+      "one" => ["a", "b", "c"],
+      "two" => ["d", "e"],
+      "three" => ["f"]
+    }
+    @hoa.extend DataTools::HashOfArrays
   end
 
   it "coalesces" do

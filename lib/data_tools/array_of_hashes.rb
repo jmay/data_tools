@@ -128,18 +128,32 @@ module DataTools::ArrayOfHashes
   def csvme(filename, fields, headers = fields)
     CSV.open(filename, "wb") do |csv|
       csv << headers unless headers.nil?
-      each {|hash| csv << fields.map {|f| hash[f]}}
+      pluck(fields).each do |ary|
+        csv << ary
+      end
+    end
+    true
+  end
+
+  def tsvme(filename, fields, headers = fields)
+    File.open(target) do |output|
+      output.puts headers.join("\t")
+      pluck(fields).each do |ary|
+        output.puts ary.join("\t")
+      end
     end
     true
   end
 
   # What different keys appear in this collection of hashes?
-  def keys
-    map {|h| h.keys}.flatten.uniq
+  def allkeys
+    each_with_object({}) do |h, memo|
+      h.keys.each {|k| memo[k] += 1}
+    end.keys
   end
 
   def metrics
-    keys.reduce({}) do |m,k|
+    allkeys.reduce({}) do |m,k|
       values = self.map {|h| h[k]}
       m[k] = {
         :non_nil => values.compact.count,
@@ -150,17 +164,6 @@ module DataTools::ArrayOfHashes
         m[k][:values] = histogram(k)
       end
       m
-    end
-  end
-
-  # For each record, output a subset of the values as an array (suitable for passing to `#to_csv`)
-  # supports hierarchical subkeys (e.g. :master:id or "master:name")
-  def project(args)
-    defaults = args[:defaults] || {}
-    map do |h|
-      args[:keys].map do |k|
-        (k.splitkey? && (deref = h[k.superkey]) && deref[k.subkey]) || h[k] || defaults[k] || args[:nilvalue]
-      end
     end
   end
 
@@ -185,12 +188,32 @@ module DataTools::ArrayOfHashes
     end
   end
 
-  # pull out all the named attributes from the hashes in the array
+  # hash slice for all the named attributes from each hashes in the array
+  def subset(*keys)
+    keys = keys.flatten
+    map do |h|
+      h.select {|k,v| keys.include? k}
+    end
+  end
+
+  # pull out all the named attributes from the hashes in the array (into array-of-arrays)
   def pluck(*keys)
+    keys = keys.flatten
     if keys.count > 1
       map {|h| keys.map {|k| h[k]}}
     else
       map {|h| h[keys.first]}
+    end
+  end
+
+  # For each record, output a subset of the values as an array (suitable for passing to `#to_csv`)
+  # supports hierarchical subkeys (e.g. :master:id or "master:name")
+  def project(args)
+    defaults = args[:defaults] || {}
+    map do |h|
+      args[:keys].map do |k|
+        (k.splitkey? && (deref = h[k.superkey]) && deref[k.subkey]) || h[k] || defaults[k] || args[:nilvalue]
+      end
     end
   end
 end
