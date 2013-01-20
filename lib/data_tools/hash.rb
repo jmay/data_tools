@@ -1,4 +1,4 @@
-class Hash
+module DataTools::Hash
   # construct a hash of changes needed to convert from an original hash to the new set of values
   # keys in the original that do not appear in the new hash should appear in the diff with nil values
   # EXCEPT that *symbol* keys from the original that *do not appear* (a nil value means it still appears) in the new hash should be ignored
@@ -199,7 +199,7 @@ class Hash
 
   def cleanse(options = {})
     each_with_object({}) do |(k,v), out|
-      out[k] = DataTools.scour(v)
+      out[k] = DataTools.scour(v, options)
       if dateformat = options[:datefields][k]
         begin
           out[k] = DateTime.strptime(v, dateformat).to_time
@@ -210,4 +210,17 @@ class Hash
     end
   end
 
+  def subset(keys)
+    map do |h|
+      h.select {|k,v| keys.include? k}
+    end
+  end
+
+  def pluck(*keys)
+    keys.flatten.map {|k| self[k]}
+  end
+end
+
+class Hash
+  include DataTools::Hash
 end

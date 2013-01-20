@@ -1,3 +1,5 @@
+require "csv"
+
 module DataTools::IO
   def unmarshal
     Marshal.load(self)
@@ -7,13 +9,25 @@ module DataTools::IO
     @import_headers ||= @import_options[:headers] || behead
   end
 
+  def split(line)
+    case import_options[:format]
+    when :tsv
+      line.split("\t")
+    when :qcq
+      line.split('","')
+    else # default is CSV
+      line.parse_csv
+    end
+  end
+
   def parseline(line)
-    line.chomp.split(header_delim)
+    split(line.chomp)
   end
 
   def import_options
     @import_options ||= {
-      junkwords: []
+      junkwords: [],
+      datefields: {}
     }
   end
 
@@ -24,12 +38,16 @@ module DataTools::IO
   def import(opts = {}) # expects a block
     configure_import(opts)
     headers = opts[:headers] || parseline(readline)
-    each_line do |line|
-      rec = Hash[headers.zip(parseline(line))].extend DataTools::Hash
-      yield rec.cleanse
+    # warn "HEADERS ARE #{headers}"
+    Enumerator.new do |yielder|
+      self.each do |line|
+        rec = Hash[headers.zip(parseline(line))]
+        rec.extend DataTools::Hash
+        yielder.yield rec.cleanse(import_options)
+      end
+      # need to emit anything to trigger a file-completed action? (such as pushing a batch to storage)
     end
   end
-
 end
 
 class IO

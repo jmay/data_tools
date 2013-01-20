@@ -191,19 +191,18 @@ module DataTools::ArrayOfHashes
   # hash slice for all the named attributes from each hashes in the array
   def subset(*keys)
     keys = keys.flatten
-    map do |h|
-      h.select {|k,v| keys.include? k}
-    end
+    map {|h| h.subset(keys) }
   end
 
   # pull out all the named attributes from the hashes in the array (into array-of-arrays)
   def pluck(*keys)
     keys = keys.flatten
-    if keys.count > 1
-      map {|h| keys.map {|k| h[k]}}
-    else
-      map {|h| h[keys.first]}
-    end
+    map {|h| h.pluck(keys)}
+    # if keys.count > 1
+    #   map {|h| keys.map {|k| h[k]}}
+    # else
+    #   map {|h| h[keys.first]}
+    # end
   end
 
   # For each record, output a subset of the values as an array (suitable for passing to `#to_csv`)

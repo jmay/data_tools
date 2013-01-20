@@ -8,7 +8,7 @@ module DataTools
     $".grep(/data_tools/).each {|f| load(f)}
   end
 
-  def DataTools.scour(s)
+  def DataTools.scour(s, opts)
     case s
     when nil
       nil
@@ -18,7 +18,7 @@ module DataTools
         # looks numeric
         s2 = s2.to_i.to_s
       end
-      (s2.empty? || import_options[:junkwords].include?(s2)) ? nil : s2
+      (s2.empty? || opts[:junkwords].include?(s2)) ? nil : s2
     when Numeric
       s.to_s
     else
@@ -31,6 +31,7 @@ end
   "version",
   "array", "hash",
   "array_of_hashes", "hash_of_arrays",
+  "enumerator",
   "comparator",
   "object", "string", "symbol",
   "file", "io",
