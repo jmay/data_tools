@@ -2,38 +2,27 @@ PATH
   remote: .
   specs:
     data_tools (0.6.0)
-      awesome_print (~> 1.0)
-      facets (>= 2.9)
+      awesome_print
+      facets
 
 GEM
   remote: http://rubygems.org/
   specs:
-    awesome_print (1.0.2)
-    bond (0.4.1)
+    awesome_print (1.1.0)
     diff-lcs (1.1.3)
     facets (2.9.3)
-    ripl (0.3.6)
-      bond (~> 0.4.0)
-    ripl-commands (0.2.1)
-      ripl (>= 0.2.9)
-    ripl-multi_line (0.2.4)
-      ripl (>= 0.3.2)
-    rspec (2.7.0)
-      rspec-core (~> 2.7.0)
-      rspec-expectations (~> 2.7.0)
-      rspec-mocks (~> 2.7.0)
-    rspec-core (2.7.1)
-    rspec-expectations (2.7.0)
-      diff-lcs (~> 1.1.2)
-    rspec-mocks (2.7.0)
+    rspec (2.12.0)
+      rspec-core (~> 2.12.0)
+      rspec-expectations (~> 2.12.0)
+      rspec-mocks (~> 2.12.0)
+    rspec-core (2.12.2)
+    rspec-expectations (2.12.1)
+      diff-lcs (~> 1.1.3)
+    rspec-mocks (2.12.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  bond
   data_tools!
-  ripl
-  ripl-commands
-  ripl-multi_line
-  rspec (~> 2.7)
+  rspec

@@ -12,13 +12,13 @@ Gem::Specification.new do |s|
   s.summary = %q{Miscellaneous data-munging utilities.}
   s.description = %q{Data-munging utilities, including extensions to Array, Hash, String, Symbol plus data conversions and transformations.}
 
-  s.required_rubygems_version = ">= 1.3.6"
+  # s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project         = "data_tools"
 
-  s.add_dependency('awesome_print', "~> 1.0")
-  s.add_dependency('facets', ">= 2.9")
+  s.add_dependency 'awesome_print'
+  s.add_dependency 'facets'
 
-  s.add_development_dependency "rspec", "~> 2.7"
+  s.add_development_dependency "rspec"
 
   s.files        = `git ls-files`.split("\n")
   s.executables  = `git ls-files`.split("\n").select{|f| f =~ /^bin/}
