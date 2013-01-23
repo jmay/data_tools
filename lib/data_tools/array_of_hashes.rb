@@ -29,6 +29,7 @@ module DataTools::ArrayOfHashes
       end
       memo
     end
+    memo.extend DataTools::HashOfArrays
     memo.default = nil
     memo
   end

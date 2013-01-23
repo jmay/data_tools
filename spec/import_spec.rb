@@ -9,7 +9,7 @@ describe "File Import" do
     # puts sio.string
 
     f.import.each_slice(3) do |slice|
-      puts slice.pluck('Person Phone GUID', 'Person Address GUID').to_json
+      puts slice.extend(DataTools::ArrayOfHashes).pluck('Person Phone GUID', 'Person Address GUID').to_json
     end
   end
 end

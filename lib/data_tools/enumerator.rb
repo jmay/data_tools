@@ -1,10 +1,10 @@
 module DataTools::Enumerator
-  def csvme(io, fields, headers = fields)
-    io.puts headers.to_csv
+  def csvme(outputstream, fields, headers = fields)
+    outputstream.puts headers.to_csv
     each do |hash|
-      io.puts hash.pluck(fields).to_csv
+      outputstream.puts hash.pluck(fields).to_csv
     end
-    io
+    outputstream
   end
 end
 
