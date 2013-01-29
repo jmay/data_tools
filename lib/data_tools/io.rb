@@ -10,7 +10,7 @@ module DataTools::IO
   end
 
   def split(line)
-    case import_options[:format]
+    fields = case import_options[:format]
     when :tsv
       line.split("\t")
     when :qcq
@@ -18,10 +18,12 @@ module DataTools::IO
     else # default is CSV
       line.parse_csv
     end
+
+    fields.map {|f| DataTools.scour(f)}
   end
 
   def parseline(line)
-    split(line.chomp)
+    split(line.strip)
   end
 
   def import_options
@@ -37,10 +39,10 @@ module DataTools::IO
 
   def import(opts = {}) # expects a block
     configure_import(opts)
-    headers = opts[:headers] || parseline(readline)
+    headers = opts[:headers] || parseline(readline(opts[:rowsep] || $/))
     # warn "HEADERS ARE #{headers}"
     Enumerator.new do |yielder|
-      self.each do |line|
+      self.each(opts[:rowsep] || $/) do |line|
         rec = Hash[headers.zip(parseline(line))]
         rec.extend DataTools::Hash
         yielder.yield rec.cleanse(import_options)

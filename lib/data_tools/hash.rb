@@ -204,7 +204,7 @@ module DataTools::Hash
         begin
           out[k] = DateTime.strptime(v, dateformat).to_time
         rescue
-          warn "invalid #{k} (expected #{dateformat}): #{rec}"
+          warn "invalid #{k} (expected #{dateformat}): #{v}"
         end
       end
     end

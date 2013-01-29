@@ -123,18 +123,18 @@ module DataTools::ArrayOfHashes
     File.open(filename, "w") {|f| f << Marshal.dump(self)}
   end
 
-  # attempt to dump out contents of this array-of-hashes as CSV to named file
-  # fields is list of attribute names to write out
-  # options headers is public names for the fields
-  def csvme(filename, fields, headers = fields)
-    CSV.open(filename, "wb") do |csv|
-      csv << headers unless headers.nil?
-      pluck(fields).each do |ary|
-        csv << ary
-      end
-    end
-    true
-  end
+  # # attempt to dump out contents of this array-of-hashes as CSV to named file
+  # # fields is list of attribute names to write out
+  # # options headers is public names for the fields
+  # def csvme(filename, fields, headers = fields)
+  #   CSV.open(filename, "wb") do |csv|
+  #     csv << headers unless headers.nil?
+  #     pluck(fields).each do |ary|
+  #       csv << ary
+  #     end
+  #   end
+  #   true
+  # end
 
   def tsvme(filename, fields, headers = fields)
     File.open(target) do |output|
