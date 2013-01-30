@@ -40,7 +40,6 @@ module DataTools::IO
     configure_import(opts)
     @linenumber = 0
     @headers = opts[:headers] || parseline(readline(opts[:rowsep] || $/))
-    # warn "HEADERS ARE #{headers}"
     Enumerator.new do |yielder|
       self.each(opts[:rowsep] || $/) do |line|
         rec = Hash[headers.zip(parseline(line))]
@@ -58,4 +57,3 @@ class IO
 end
 
 ARGF.extend DataTools::IO
-

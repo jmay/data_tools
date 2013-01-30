@@ -18,9 +18,7 @@ module DataTools::Enumerator
   end
 
   def lazy_map(&block)
-    # puts "lazy map setup with #{block}"
     Enumerator.new do |yielder|
-      # puts "lazy map ready"
       self.each do |value|
         yielder.yield(block.call(value))
       end
