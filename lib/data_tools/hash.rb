@@ -202,22 +202,23 @@ module DataTools::Hash
       out[k] = DataTools.scour(v, options)
       if dateformat = options[:datefields][k]
         begin
-          out[k] = DateTime.strptime(v, dateformat).to_time
-        rescue
-          warn "invalid #{k} (expected #{dateformat}): #{v}"
+          out[k] = DateTime.strptime(v||'', dateformat)
+        rescue ArgumentError
+          warn "expected '#{dateformat}' in #{k} = '#{v}' at [#{options[:line]}]: #{self}"
         end
       end
     end
   end
 
-  def subset(keys)
-    map do |h|
-      h.select {|k,v| keys.include? k}
-    end
-  end
+  # def subset(*keys)
+  #   map do |h|
+  #     h.select {|k,v| Array(keys).include? k}
+  #   end
+  # end
 
-  def pluck(*keys)
-    keys.flatten.map {|k| self[k]}
+  def pluck(keys)
+    keys.map {|k| self[k]}
+    # keys.flatten.map {|k| self[k]}
   end
 end
 

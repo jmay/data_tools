@@ -1,12 +1,10 @@
 require "csv"
 
 module DataTools::IO
+  attr_reader :headers
+
   def unmarshal
     Marshal.load(self)
-  end
-
-  def headers
-    @import_headers ||= @import_options[:headers] || behead
   end
 
   def split(line)
@@ -15,7 +13,7 @@ module DataTools::IO
       line.split("\t")
     when :qcq
       line.split('","')
-    else # default is CSV
+    else # default is :csv
       line.parse_csv
     end
 
@@ -23,6 +21,7 @@ module DataTools::IO
   end
 
   def parseline(line)
+    @linenumber += 1
     split(line.strip)
   end
 
@@ -39,13 +38,15 @@ module DataTools::IO
 
   def import(opts = {}) # expects a block
     configure_import(opts)
-    headers = opts[:headers] || parseline(readline(opts[:rowsep] || $/))
+    @linenumber = 0
+    @headers = opts[:headers] || parseline(readline(opts[:rowsep] || $/))
     # warn "HEADERS ARE #{headers}"
     Enumerator.new do |yielder|
       self.each(opts[:rowsep] || $/) do |line|
         rec = Hash[headers.zip(parseline(line))]
+        next if rec.empty? # silently ignore blank records
         rec.extend DataTools::Hash
-        yielder.yield rec.cleanse(import_options)
+        yielder.yield rec.cleanse(import_options.merge(:line => @linenumber))
       end
       # need to emit anything to trigger a file-completed action? (such as pushing a batch to storage)
     end
@@ -55,3 +56,6 @@ end
 class IO
   include DataTools::IO
 end
+
+ARGF.extend DataTools::IO
+
