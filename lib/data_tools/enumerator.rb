@@ -4,6 +4,7 @@ module DataTools::Enumerator
     each do |hash|
       outputstream.puts hash.pluck(fields).to_csv
     end
+    outputstream.flush # otherwise missing rows might not get pushed out
     outputstream
   rescue Errno::EPIPE
     # output was closed, that's fine
