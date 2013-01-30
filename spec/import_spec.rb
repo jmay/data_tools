@@ -4,7 +4,7 @@ require "json"
 
 describe "File Import" do
   it "imports" do
-    f = File.open(File.dirname(__FILE__) + "/../hrhead.csv")
+    f = File.open(File.dirname(__FILE__) + "/../tmp/hrhead.csv")
     # sio = f.import.csvme(StringIO.new, ['Person Phone GUID', 'Person Address GUID'])
     # puts sio.string
 
