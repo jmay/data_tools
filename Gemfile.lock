@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    data_tools (0.6.1)
+    data_tools (0.6.2)
       awesome_print
       facets
 

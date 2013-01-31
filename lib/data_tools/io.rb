@@ -1,7 +1,7 @@
 require "csv"
 
 module DataTools::IO
-  attr_reader :headers
+  attr_reader :headers, :import_options
 
   def unmarshal
     Marshal.load(self)
@@ -22,7 +22,9 @@ module DataTools::IO
 
   def parseline(line)
     @linenumber += 1
-    split(line.strip)
+    # remove leading and trailing line endings (CR or LF)
+    # but NOT whitespace, because e.g. there could be leading or trailing blank fields delimited by tabs
+    split(line.gsub(/^[\n\r]*|[\n\r]*$/, ''))
   end
 
   def import_options

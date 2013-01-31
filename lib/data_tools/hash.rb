@@ -185,7 +185,7 @@ module DataTools::Hash
       out[k] = DataTools.scour(v, options)
       if dateformat = options[:datefields][k]
         begin
-          out[k] = v && DateTime.strptime(v, dateformat)
+          out[k] = v && DateTime.strptime(v, dateformat).to_date
         rescue ArgumentError
           warn "expected '#{dateformat}' in #{k} = '#{v}' at [#{options[:line]}]: #{self}"
         end
