@@ -38,13 +38,17 @@ module DataTools::IO
     import_options.merge!(options)
   end
 
+  def line_to_record(line)
+    Hash[headers.zip(parseline(line)).select {|k,v| !v.nil?}]
+  end
+
   def import(opts = {}) # expects a block
     configure_import(opts)
     @linenumber = 0
     @headers = opts[:headers] || parseline(readline(opts[:rowsep] || $/))
     Enumerator.new do |yielder|
       self.each(opts[:rowsep] || $/) do |line|
-        rec = Hash[headers.zip(parseline(line))]
+        rec = line_to_record(line)
         next if rec.empty? # silently ignore blank records
         rec.extend DataTools::Hash
         yielder.yield rec.cleanse(import_options.merge(:line => @linenumber))
