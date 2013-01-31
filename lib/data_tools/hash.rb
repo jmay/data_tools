@@ -180,41 +180,18 @@ module DataTools::Hash
     end
   end
 
-  # # HASH OF ARRAYS
-  # def coalesce!(args)
-  #   rules = args[:per]
-  #   rules.each do |from, to|
-  #     if self[to].nil?
-  #       raise "cannot merge #{from} into #{to}, destination does not exist"
-  #     end
-  #     if self[from].nil?
-  #       $stderr.puts "cannot merge #{from} into #{to}, source does not exist, ignoring"
-  #       next
-  #     end
-  #     self[to] += self[from]
-  #     self.delete(from)
-  #   end
-  #   self
-  # end
-
   def cleanse(options = {})
     each_with_object({}) do |(k,v), out|
       out[k] = DataTools.scour(v, options)
       if dateformat = options[:datefields][k]
         begin
-          out[k] = DateTime.strptime(v||'', dateformat)
+          out[k] = v && DateTime.strptime(v, dateformat)
         rescue ArgumentError
           warn "expected '#{dateformat}' in #{k} = '#{v}' at [#{options[:line]}]: #{self}"
         end
       end
     end
   end
-
-  # def subset(*keys)
-  #   map do |h|
-  #     h.select {|k,v| Array(keys).include? k}
-  #   end
-  # end
 
   def pluck(keys)
     keys.map {|k| self[k]}
