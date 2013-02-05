@@ -37,6 +37,4 @@ module DataTools::Array
     File.unlink(filename) if File.exists?(filename)
     File.open(filename, "w") {|f| f << Marshal.dump(self)}
   end
-
-
 end

@@ -9,9 +9,11 @@ module DataTools::IO
 
   def split(line)
     fields = case import_options[:format]
-    when :tsv
+    when :tsv # tab-delimited
       line.split("\t")
-    when :qcq
+    when :wsv # whitespace-delimited
+      line.split
+    when :qcq # quote-comma-quote (*not* the same as CSV)
       line.split('","')
     else # default is :csv
       line.parse_csv

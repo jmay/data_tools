@@ -188,6 +188,7 @@ module DataTools::Hash
           out[k] = v && DateTime.strptime(v, dateformat).to_date
         rescue ArgumentError
           warn "expected '#{dateformat}' in #{k} = '#{v}' at [#{options[:line]}]: #{self}"
+          out[k] = nil
         end
       end
     end
