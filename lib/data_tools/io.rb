@@ -32,7 +32,8 @@ module DataTools::IO
   def import_options
     @import_options ||= {
       junkwords: [],
-      datefields: {}
+      datefields: {},
+      timefields: {}
     }
   end
 

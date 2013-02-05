@@ -183,11 +183,21 @@ module DataTools::Hash
   def cleanse(options = {})
     each_with_object({}) do |(k,v), out|
       out[k] = DataTools.scour(v, options)
+
       if dateformat = options[:datefields][k]
         begin
           out[k] = v && DateTime.strptime(v, dateformat).to_date
         rescue ArgumentError
           warn "expected '#{dateformat}' in #{k} = '#{v}' at [#{options[:line]}]: #{self}"
+          out[k] = nil
+        end
+      end
+
+      if timeformat = options[:timefields][k]
+        begin
+          out[k] = v && DateTime.strptime(v, timeformat).to_time.utc
+        rescue ArgumentError
+          warn "expected '#{timeformat}' in #{k} = '#{v}' at [#{options[:line]}]: #{self}"
           out[k] = nil
         end
       end
