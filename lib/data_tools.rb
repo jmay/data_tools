@@ -13,7 +13,10 @@ module DataTools
     when nil
       nil
     when String
-      s2 = s.strip.gsub(/\s+/, ' ').gsub(/^"/, '').gsub(/"$/, '')
+      s2 = s.strip.gsub(/\s+/, ' ')
+      if s2 =~ /^".*"$/
+        s2 = s2.gsub(/^"/, '').gsub(/"$/, '')
+      end
       if s2 =~ /^[\d]+(\.[\d]+){0,1}$/
         # looks numeric
         s2 = s2.to_i.to_s
